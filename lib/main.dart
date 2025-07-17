@@ -10,6 +10,9 @@ void main() {
 }
 
 class MedicApp extends StatelessWidget {
+  // Constructor con key, recomendado para widgets públicos
+  MedicApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
