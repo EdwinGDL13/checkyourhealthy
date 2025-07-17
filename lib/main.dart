@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'register_page.dart';
 import 'login_page.dart';
 import 'forgot_password_page.dart';
-import 'home_page.dart'; // <-- Asegúrate de que este archivo exista
+import 'home_page.dart';
 
 void main() {
-  runApp(const MedicApp()); // Usa const para mejor performance
+  runApp(const MedicApp());
 }
 
 class MedicApp extends StatelessWidget {
-  // Constructor recomendado con key y const
-  const MedicApp({Key? key}) : super(key: key);
+  const MedicApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class MedicApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         '/login': (context) => LoginPage(),
         '/forgot-password': (context) => ForgotPasswordPage(),
-        '/home': (context) => MedicHomePage(), // <-- Ruta agregada
+        '/home': (context) => MedicHomePage(),
       },
       debugShowCheckedModeBanner: false,
     );

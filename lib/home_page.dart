@@ -4,7 +4,7 @@ import 'historial_page.dart';
 import 'configuracion_page.dart';
 
 class MedicHomePage extends StatefulWidget {
-  const MedicHomePage({Key? key}) : super(key: key);
+  const MedicHomePage({super.key});
 
   @override
   MedicHomePageState createState() => MedicHomePageState();

@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  RegisterPage({super.key});
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +81,8 @@ class RegisterPage extends StatelessWidget {
 
                   // Pequeña espera para que el mensaje sea visible antes de cambiar de pantalla
                   Future.delayed(const Duration(milliseconds: 500), () {
+                    if (!mounted)
+                      return; // <-- Verifica que el widget siga montado
                     Navigator.pushReplacementNamed(context, '/login');
                   });
                 },

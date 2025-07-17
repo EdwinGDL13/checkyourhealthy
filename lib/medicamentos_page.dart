@@ -17,10 +17,11 @@ class MedicamentosPage extends StatefulWidget {
   const MedicamentosPage({super.key});
 
   @override
-  _MedicamentosPageState createState() => _MedicamentosPageState();
+  MedicamentosPageState createState() => MedicamentosPageState();
 }
 
-class _MedicamentosPageState extends State<MedicamentosPage> {
+// Cambié el nombre de _MedicamentosPageState a MedicamentosPageState (público)
+class MedicamentosPageState extends State<MedicamentosPage> {
   List<Medicamento> medicamentos = [
     Medicamento(
       nombre: 'Paracetamol',
@@ -266,10 +267,11 @@ class _AgregarMedicamentoPageState extends State<AgregarMedicamentoPage> {
                 const SizedBox(height: 12),
                 TextButton.icon(
                   onPressed: _seleccionarHorario,
+                  style: TextButton.styleFrom(foregroundColor: Colors.teal),
                   icon: const Icon(Icons.access_time),
                   label: const Text('Agregar horario'),
-                  style: TextButton.styleFrom(foregroundColor: Colors.teal),
                 ),
+
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   onPressed: () {

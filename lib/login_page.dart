@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginPage({super.key});
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +57,7 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (emailController.text.isNotEmpty &&
                       passwordController.text.isNotEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -55,9 +67,11 @@ class LoginPage extends StatelessWidget {
                       ),
                     );
 
-                    Future.delayed(const Duration(milliseconds: 500), () {
-                      Navigator.pushReplacementNamed(context, '/home');
-                    });
+                    await Future.delayed(const Duration(milliseconds: 500));
+
+                    if (!mounted) return;
+
+                    Navigator.pushReplacementNamed(context, '/home');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
