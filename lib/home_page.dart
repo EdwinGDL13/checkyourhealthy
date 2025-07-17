@@ -4,11 +4,13 @@ import 'historial_page.dart';
 import 'configuracion_page.dart';
 
 class MedicHomePage extends StatefulWidget {
+  const MedicHomePage({Key? key}) : super(key: key);
+
   @override
-  _MedicHomePageState createState() => _MedicHomePageState();
+  MedicHomePageState createState() => MedicHomePageState();
 }
 
-class _MedicHomePageState extends State<MedicHomePage> {
+class MedicHomePageState extends State<MedicHomePage> {
   int currentIndex = 0;
 
   // Medicinas con solo la hora para dosis diaria
@@ -104,7 +106,7 @@ class _MedicHomePageState extends State<MedicHomePage> {
   }
 
   Widget buildInicioPage() {
-    _resetTakenIfNewDay(); // Verificar cambio de día cada vez que se construye la página
+    _resetTakenIfNewDay();
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
