@@ -6,12 +6,12 @@ import 'forgot_password_page.dart';
 import 'home_page.dart'; // <-- Asegúrate de que este archivo exista
 
 void main() {
-  runApp(MedicApp());
+  runApp(const MedicApp()); // Usa const para mejor performance
 }
 
 class MedicApp extends StatelessWidget {
-  // Constructor con key, recomendado para widgets públicos
-  MedicApp({Key? key}) : super(key: key);
+  // Constructor recomendado con key y const
+  const MedicApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
