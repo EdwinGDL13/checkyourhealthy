@@ -4,10 +4,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -16,6 +16,38 @@ class _LoginPageState extends State<LoginPage> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _handleLogin() async {
+    // ✅ Captura el contexto local
+    final BuildContext ctx = context;
+
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+      if (!ctx.mounted) return;
+
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        const SnackBar(
+          content: Text('Inicio de sesión exitoso (simulado)'),
+          backgroundColor: Colors.teal,
+        ),
+      );
+
+      // Espera simulada
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      if (!ctx.mounted) return; // ✅ Garantiza que el contexto sigue montado
+
+      Navigator.pushReplacementNamed(ctx, '/home');
+    } else {
+      if (!ctx.mounted) return;
+
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        const SnackBar(
+          content: Text('Por favor completa todos los campos'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -57,30 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () async {
-                  if (emailController.text.isNotEmpty &&
-                      passwordController.text.isNotEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Inicio de sesión exitoso (simulado)'),
-                        backgroundColor: Colors.teal,
-                      ),
-                    );
-
-                    await Future.delayed(const Duration(milliseconds: 500));
-
-                    if (!mounted) return;
-
-                    Navigator.pushReplacementNamed(context, '/home');
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Por favor completa todos los campos'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
+                onPressed: _handleLogin,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
                   minimumSize: const Size(double.infinity, 50),

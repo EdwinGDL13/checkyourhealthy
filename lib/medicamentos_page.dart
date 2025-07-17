@@ -20,7 +20,7 @@ class MedicamentosPage extends StatefulWidget {
   MedicamentosPageState createState() => MedicamentosPageState();
 }
 
-// Cambié el nombre de _MedicamentosPageState a MedicamentosPageState (público)
+// Estado público para evitar warnings por uso de tipos privados en API pública
 class MedicamentosPageState extends State<MedicamentosPage> {
   List<Medicamento> medicamentos = [
     Medicamento(
@@ -139,8 +139,8 @@ class MedicamentosPageState extends State<MedicamentosPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal,
         onPressed: _mostrarAgregarMedicamento,
-        child: const Icon(Icons.add, color: Colors.white),
         tooltip: 'Agregar medicamento',
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
@@ -150,10 +150,11 @@ class AgregarMedicamentoPage extends StatefulWidget {
   const AgregarMedicamentoPage({super.key});
 
   @override
-  _AgregarMedicamentoPageState createState() => _AgregarMedicamentoPageState();
+  AgregarMedicamentoPageState createState() => AgregarMedicamentoPageState();
 }
 
-class _AgregarMedicamentoPageState extends State<AgregarMedicamentoPage> {
+// Estado público para evitar warnings
+class AgregarMedicamentoPageState extends State<AgregarMedicamentoPage> {
   final _formKey = GlobalKey<FormState>();
 
   String nombre = '';
@@ -177,7 +178,12 @@ class _AgregarMedicamentoPageState extends State<AgregarMedicamentoPage> {
     );
 
     if (horaSeleccionada != null) {
-      final formattedTime = horaSeleccionada.format(context);
+      if (!mounted) return;
+
+      // Obtener localización sin usar context para formatear
+      final localizations = MaterialLocalizations.of(context);
+      final formattedTime = localizations.formatTimeOfDay(horaSeleccionada);
+
       setState(() {
         if (!horariosSeleccionados.contains(formattedTime)) {
           horariosSeleccionados.add(formattedTime);
@@ -267,11 +273,10 @@ class _AgregarMedicamentoPageState extends State<AgregarMedicamentoPage> {
                 const SizedBox(height: 12),
                 TextButton.icon(
                   onPressed: _seleccionarHorario,
-                  style: TextButton.styleFrom(foregroundColor: Colors.teal),
                   icon: const Icon(Icons.access_time),
                   label: const Text('Agregar horario'),
+                  style: TextButton.styleFrom(foregroundColor: Colors.teal),
                 ),
-
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   onPressed: () {
@@ -285,7 +290,6 @@ class _AgregarMedicamentoPageState extends State<AgregarMedicamentoPage> {
                         );
                         return;
                       }
-
                       _formKey.currentState!.save();
 
                       final nuevoMedicamento = Medicamento(
@@ -301,7 +305,7 @@ class _AgregarMedicamentoPageState extends State<AgregarMedicamentoPage> {
                   label: const Text(
                     'Guardar Medicamento',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

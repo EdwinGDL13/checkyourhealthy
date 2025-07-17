@@ -4,10 +4,10 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPageState extends State<RegisterPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -18,6 +18,11 @@ class _RegisterPageState extends State<RegisterPage> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  void _navegarHomeSeguro() {
+    if (!mounted) return;
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   @override
@@ -79,11 +84,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   );
 
-                  // Pequeña espera para que el mensaje sea visible antes de cambiar de pantalla
+                  // Espera para que el SnackBar sea visible antes de navegar
                   Future.delayed(const Duration(milliseconds: 500), () {
-                    if (!mounted)
-                      return; // <-- Verifica que el widget siga montado
-                    Navigator.pushReplacementNamed(context, '/login');
+                    _navegarHomeSeguro();
                   });
                 },
                 style: ElevatedButton.styleFrom(
